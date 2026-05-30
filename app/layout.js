@@ -1,6 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { getRuntimeEnvSnapshot } from "@/lib/publicEnv";
+import EnvBootstrap from "./EnvBootstrap";
 import "./globals.css";
+
+/** Read Cloud Run env on every request (not at `next build` time). */
+export const dynamic = "force-dynamic";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +36,9 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <EnvBootstrap>{children}</EnvBootstrap>
+      </body>
     </html>
   );
 }
