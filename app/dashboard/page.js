@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
+import { getPublicEnv } from '@/lib/publicEnv';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './incident-markers.css';
@@ -121,7 +122,7 @@ export default function Dashboard() {
   const audioRef = useRef(null);
   const incidentsRef = useRef([]);
   const didInitialBoundsFitRef = useRef(false);
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+  const mapboxToken = getPublicEnv('NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN');
 
   const authorized = isAuthorized === true;
 

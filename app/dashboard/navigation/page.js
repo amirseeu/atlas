@@ -4,6 +4,7 @@ import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { X, MapPin, Navigation as NavigationIcon, Loader2, AlertCircle } from 'lucide-react';
 import { getNearestStation } from '@/lib/emergencyStations';
+import { getPublicEnv } from '@/lib/publicEnv';
 
 function NavigationContent() {
   const searchParams = useSearchParams();
@@ -69,7 +70,7 @@ function NavigationContent() {
     );
   }
 
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+  const apiKey = getPublicEnv('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY');
   
   if (!apiKey) {
     return (
