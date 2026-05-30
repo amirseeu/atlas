@@ -1,0 +1,262 @@
+/* Incident map markers — modern, minimal */
+
+.incident-marker {
+  position: relative;
+  width: 32px;
+  height: 38px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: auto;
+  --marker-color: #71717a;
+  --marker-light: #a1a1aa;
+  --marker-glow: rgba(113, 113, 122, 0.35);
+}
+
+.incident-marker--selected {
+  z-index: 20;
+  transform: scale(1.12);
+}
+
+/* Soft pulse */
+.incident-marker__pulse {
+  position: absolute;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  border-radius: 50%;
+  background: var(--marker-glow);
+  pointer-events: none;
+  transform-origin: center center;
+}
+
+.incident-marker--civilian .incident-marker__pulse {
+  bottom: 5px;
+}
+
+.incident-marker--sensor .incident-marker__pulse {
+  top: 50%;
+  margin-top: -11px;
+}
+
+.incident-marker--pulse-normal .incident-marker__pulse {
+  animation: marker-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.incident-marker--pulse-fast .incident-marker__pulse {
+  animation: marker-pulse 1.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes marker-pulse {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+.incident-marker__shape {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/* Citizen: clean map pin */
+.incident-marker__shape--pin {
+  width: 18px;
+  height: 18px;
+  border-radius: 50% 50% 50% 2px;
+  transform: rotate(-45deg);
+  background: linear-gradient(160deg, var(--marker-light) 0%, var(--marker-color) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+/* Sensor: simple ring beacon (not diamond) */
+.incident-marker--sensor {
+  width: 28px;
+  height: 28px;
+  align-items: center;
+}
+
+.incident-marker__shape--beacon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--marker-color);
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 0 0 2px var(--marker-glow),
+    0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+.incident-marker__shape--beacon::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--marker-color);
+  opacity: 0.45;
+}
+
+/* Citizen palette */
+.incident-marker--civilian.incident-marker--medical {
+  --marker-color: #dc2626;
+  --marker-light: #f87171;
+  --marker-glow: rgba(220, 38, 38, 0.38);
+}
+
+.incident-marker--civilian.incident-marker--fire {
+  --marker-color: #ea580c;
+  --marker-light: #fb923c;
+  --marker-glow: rgba(234, 88, 12, 0.38);
+}
+
+.incident-marker--civilian.incident-marker--police {
+  --marker-color: #2563eb;
+  --marker-light: #60a5fa;
+  --marker-glow: rgba(37, 99, 235, 0.38);
+}
+
+.incident-marker--civilian.incident-marker--natural_disaster {
+  --marker-color: #16a34a;
+  --marker-light: #4ade80;
+  --marker-glow: rgba(22, 163, 74, 0.35);
+}
+
+.incident-marker--civilian.incident-marker--unknown {
+  --marker-color: #8b5cf6;
+  --marker-light: #c4b5fd;
+  --marker-glow: rgba(139, 92, 246, 0.32);
+}
+
+.incident-marker--civilian.incident-marker--resolved {
+  --marker-color: #6b7280;
+  --marker-light: #9ca3af;
+  --marker-glow: rgba(156, 163, 175, 0.32);
+}
+
+/* Sensor palette — same hues, lighter fill */
+.incident-marker--sensor.incident-marker--medical {
+  --marker-color: #ef4444;
+  --marker-light: #fca5a5;
+  --marker-glow: rgba(239, 68, 68, 0.45);
+}
+
+.incident-marker--sensor.incident-marker--fire {
+  --marker-color: #f97316;
+  --marker-light: #fdba74;
+  --marker-glow: rgba(249, 115, 22, 0.45);
+}
+
+.incident-marker--sensor.incident-marker--police {
+  --marker-color: #3b82f6;
+  --marker-light: #93c5fd;
+  --marker-glow: rgba(59, 130, 246, 0.45);
+}
+
+.incident-marker--sensor.incident-marker--natural_disaster {
+  --marker-color: #22c55e;
+  --marker-light: #86efac;
+  --marker-glow: rgba(34, 197, 94, 0.35);
+}
+
+.incident-marker--sensor.incident-marker--unknown {
+  --marker-color: #8b5cf6;
+  --marker-light: #c4b5fd;
+  --marker-glow: rgba(139, 92, 246, 0.32);
+}
+
+.incident-marker--sensor.incident-marker--resolved {
+  --marker-color: #6b7280;
+  --marker-light: #9ca3af;
+  --marker-glow: rgba(156, 163, 175, 0.32);
+}
+
+/* Popups */
+.incident-popup {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #f4f4f5;
+  padding: 2px 0;
+  min-width: 200px;
+}
+
+.incident-popup__badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--popup-accent, #71717a);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin: 0 0 8px;
+}
+
+.incident-popup__title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.incident-popup__category {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--popup-accent, #a1a1aa);
+  margin: 0 0 8px;
+}
+
+.incident-popup__desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d4d4d8;
+  margin: 0 0 10px;
+}
+
+.incident-popup__row {
+  font-size: 11px;
+  margin: 0 0 4px;
+  color: #a1a1aa;
+}
+
+.incident-popup__label {
+  font-weight: 600;
+  color: #71717a;
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+}
+
+.mapboxgl-popup-content {
+  background: #18181b !important;
+  border: 1px solid #3f3f46;
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5) !important;
+}
+
+.mapboxgl-popup-close-button {
+  color: #a1a1aa !important;
+  font-size: 18px;
+  padding: 4px 8px;
+}
+
+.mapboxgl-popup-close-button:hover {
+  color: #fff !important;
+  background: transparent;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: #18181b !important;
+}

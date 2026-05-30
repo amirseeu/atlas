@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.env*
+Dockerfile*
+.git
+.gitignore
+README.md
+README.md
+*.log
+*.md
+*.local
+*.sqlite
+**/.DS_Store
+**/Thumbs.db
